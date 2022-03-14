@@ -1,6 +1,6 @@
 // ARRAY OF OBJECTS TO STORE A LIST OF BOOKS
 
-const bookCollection = [];
+let bookCollection = [];
 
 // PRESERVE DATA IN THE BROWSER (LOCAL STORAGE)
 const form = document.getElementById('book-form');
@@ -10,7 +10,7 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const formData = {
-    id: 1,
+    id: bookCollection.length,
     title: title.value,
     author: author.value,
   };
@@ -37,6 +37,7 @@ bookCollection.forEach((book) => {
   const content = `<div class="book">
 <p>${book.title}</p>
 <p>${book.author}</p>
+<span hidden>${book.id}</span>
 <button class="remove">Remove</button>
 <hr />
 </div>`;
@@ -49,6 +50,10 @@ const remove = document.querySelectorAll('.remove');
 
 remove.forEach((button) => {
   button.addEventListener('click', (e) => {
-    console.log(e);
+    const bookID = e.path.filter((el) => el.classList?.contains('book')).at(0)
+      .childNodes[1].textContent;
+
+    bookCollection = bookCollection.filter((book) => book.id !== bookID);
+    console.log(bookCollection);
   });
 });
