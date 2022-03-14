@@ -2,7 +2,7 @@
 
 let bookCollection = [];
 
-// PRESERVE DATA IN THE BROWSER (LOCAL STORAGE)
+// Add book function
 const form = document.getElementById('book-form');
 const { title, author } = form.elements;
 
@@ -10,14 +10,16 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const formData = {
-    id: bookCollection.length,
     title: title.value,
     author: author.value,
   };
 
   bookCollection.push(formData);
   localStorage.setItem('bookData', JSON.stringify(bookCollection));
+  location.reload();
 });
+
+// PRESERVE DATA IN THE BROWSER (LOCAL STORAGE)
 
 const fillForm = localStorage.getItem('bookData');
 
@@ -27,8 +29,6 @@ if (fillForm) {
   bookCollection.push(...data);
 }
 
-// Add book function
-
 // CREATING BOOKS FROM ARRAY DATA AND POPULATING DYNAMICALLY
 
 const container = document.querySelector('.container');
@@ -37,7 +37,6 @@ bookCollection.forEach((book) => {
   const content = `<div class="book">
 <p>${book.title}</p>
 <p>${book.author}</p>
-<span hidden>${book.id}</span>
 <button class="remove">Remove</button>
 <hr />
 </div>`;
@@ -46,14 +45,18 @@ bookCollection.forEach((book) => {
 });
 
 // Remove book function
-const remove = document.querySelectorAll('.remove');
 
-remove.forEach((button) => {
-  button.addEventListener('click', (e) => {
-    const bookID = e.path.filter((el) => el.classList?.contains('book')).at(0)
-      .childNodes[1].textContent;
+const removeBook = function () {
+  const remove = document.querySelectorAll('.remove');
+  const book = document.querySelectorAll('.book');
 
-    bookCollection = bookCollection.filter((book) => book.id !== bookID);
-    console.log(bookCollection);
+  remove.forEach((button, i) => {
+    button.addEventListener('click', () => {
+      book[i].remove();
+      bookCollection.splice(i, 1);
+      localStorage.setItem('bookData', JSON.stringify(bookCollection));
+    });
   });
-});
+};
+
+removeBook();
