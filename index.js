@@ -2,11 +2,11 @@
 
 const bookCollection = [];
 
-// PRESERVE DATA IN THE BROWSER (LOCAL STORAGE)
+// Add book function
 const form = document.getElementById('book-form');
 const { title, author } = form.elements;
 
-function addBook() {
+const addBook = function () {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -17,9 +17,11 @@ function addBook() {
 
     bookCollection.push(formData);
     localStorage.setItem('bookData', JSON.stringify(bookCollection));
-    document.location.reload();
+    window.location.reload();
   });
-}
+};
+
+// PRESERVE DATA IN THE BROWSER (LOCAL STORAGE)
 
 const fillForm = localStorage.getItem('bookData');
 
@@ -28,8 +30,6 @@ if (fillForm) {
 
   bookCollection.push(...data);
 }
-
-// Add book function
 
 // CREATING BOOKS FROM ARRAY DATA AND POPULATING DYNAMICALLY
 
@@ -47,18 +47,19 @@ bookCollection.forEach((book) => {
 });
 
 // Remove book function
-function removeBook() {
+
+const removeBook = function () {
   const remove = document.querySelectorAll('.remove');
-  for (let i = 0; i < remove.length; i += 1) {
-    remove[i].addEventListener('click', () => {
-      const newBookCollection = bookCollection.filter(
-        (book) => book !== bookCollection[i],
-      );
-      localStorage.setItem('bookData', JSON.stringify(newBookCollection));
-      document.location.reload();
+  const book = document.querySelectorAll('.book');
+
+  remove.forEach((button, i) => {
+    button.addEventListener('click', () => {
+      book[i].remove();
+      bookCollection.splice(i, 1);
+      localStorage.setItem('bookData', JSON.stringify(bookCollection));
     });
-  }
-}
+  });
+};
 
 addBook();
 removeBook();
