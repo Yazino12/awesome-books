@@ -6,18 +6,20 @@ let bookCollection = [];
 const form = document.getElementById('book-form');
 const { title, author } = form.elements;
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
+const addBook = function () {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  const formData = {
-    title: title.value,
-    author: author.value,
-  };
+    const formData = {
+      title: title.value,
+      author: author.value,
+    };
 
-  bookCollection.push(formData);
-  localStorage.setItem('bookData', JSON.stringify(bookCollection));
-  location.reload();
-});
+    bookCollection.push(formData);
+    localStorage.setItem('bookData', JSON.stringify(bookCollection));
+    location.reload();
+  });
+};
 
 // PRESERVE DATA IN THE BROWSER (LOCAL STORAGE)
 
@@ -59,4 +61,5 @@ const removeBook = function () {
   });
 };
 
+addBook();
 removeBook();
