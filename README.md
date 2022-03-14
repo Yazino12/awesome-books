@@ -12,7 +12,7 @@
 
 👤 **Fahd Rahali**
 
-- GitHub: [@Yazino12](https://github.com/fahdrahali)
+- GitHub: [@fahdrahali](https://github.com/fahdrahali)
 
 ## Live
 
