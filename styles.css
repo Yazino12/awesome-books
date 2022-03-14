@@ -1,0 +1,50 @@
+body,
+p,
+h1 {
+  margin: 0;
+}
+
+hr {
+  height: 1px;
+  background: grey;
+  border-style: none;
+  width: 300px;
+  margin: 0;
+}
+
+.main-section {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  gap: 1em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  width: 300px;
+  font-weight: 900;
+}
+
+.book button {
+  width: 70px;
+}
+
+#book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 150px;
+}
+
+#book-form button {
+  display: inline-block;
+  width: 50px;
+}
