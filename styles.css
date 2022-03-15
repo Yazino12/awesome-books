@@ -1,11 +1,24 @@
 @import url('https://fonts.cdnfonts.com/css/cocogoose');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+body {
+  font-family: 'COCOGOOSE', sans-serif;
+  min-width: 568px;
+}
 
 body,
 p,
 h1 {
   margin: 0;
-  font-family: 'Lato', sans-serif;
   color: #272a31;
+}
+
+hr {
+  height: 1px;
+  background: grey;
+  border-style: none;
+  width: 50%;
+  margin: 0;
 }
 
 .main-section {
@@ -20,16 +33,18 @@ h1 {
 }
 
 .container {
+  font-family: 'Lato', sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 1em;
   width: 80%;
+  background-color: blanchedalmond;
 }
 
 .book {
   display: flex;
   justify-content: space-between;
   gap: 0.5em;
+  padding: 0.5em 1em;
   font-weight: 600;
 }
 
@@ -42,11 +57,20 @@ h1 {
   width: 70px;
 }
 
+.evens {
+  background-color: gainsboro;
+}
+
 #book-form {
   display: flex;
   flex-direction: column;
   gap: 1em;
   width: 150px;
+}
+
+#book-form div {
+  display: flex;
+  justify-content: end;
 }
 
 #book-form button {
