@@ -1,5 +1,12 @@
 // BOOKS COLLECTION CLASS
 
+class Book {
+  constructor(title, author) {
+    this.title = title;
+    this.author = author;
+  }
+}
+
 class BookCollection {
   constructor(collectionArray) {
     this.collectionArray = collectionArray;
@@ -13,10 +20,7 @@ class BookCollection {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const formData = {
-        title: title.value,
-        author: author.value,
-      };
+      const formData = new Book(title.value, author.value);
 
       this.collectionArray.push(formData);
       localStorage.setItem('bookData', JSON.stringify(this.collectionArray));
