@@ -1,6 +1,9 @@
-import Book from './book.js';
-
 // BOOKS COLLECTION CLASS
+
+function Book(title, author) {
+  this.title = title;
+  this.author = author;
+}
 
 class BookCollection {
   constructor(collectionArray) {

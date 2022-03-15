@@ -28,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/Yazino12/awesome-books/issues"
   },
-  "homepage": "https://github.com/Yazino12/awesome-books#readme"
+  "homepage": "https://github.com/Yazino12/awesome-books#readme",
+  "type": "module"
 }
