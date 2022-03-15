@@ -1,36 +1,41 @@
+@import url('https://fonts.cdnfonts.com/css/cocogoose');
+
 body,
 p,
 h1 {
   margin: 0;
-}
-
-hr {
-  height: 1px;
-  background: grey;
-  border-style: none;
-  width: 300px;
-  margin: 0;
+  font-family: 'Lato', sans-serif;
+  color: #272a31;
 }
 
 .main-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 1em;
   gap: 1em;
+  background-color: cornsilk;
+  width: 70%;
+  margin: auto;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   gap: 1em;
+  width: 80%;
 }
 
 .book {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   gap: 0.5em;
-  width: 300px;
-  font-weight: 900;
+  font-weight: 600;
+}
+
+.book .left {
+  display: flex;
+  gap: 0.6em;
 }
 
 .book button {

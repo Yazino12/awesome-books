@@ -37,10 +37,12 @@ const container = document.querySelector('.container');
 
 bookCollection.forEach((book) => {
   const content = `<div class="book">
-<p>${book.title}</p>
+  <div class="left">
+  <p>${book.title}</p> 
+  <p>by</p>
 <p>${book.author}</p>
+  </div>
 <button class="remove">Remove</button>
-<hr />
 </div>`;
 
   container.innerHTML += content;
