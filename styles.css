@@ -1,40 +1,82 @@
+@import url('https://fonts.cdnfonts.com/css/cocogoose');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+body {
+  font-family: 'COCOGOOSE', sans-serif;
+  min-width: 568px;
+}
+
 body,
 p,
 h1 {
   margin: 0;
+  color: #fff;
+}
+
+h1,
+h2 {
+  color: #3369ff;
 }
 
 hr {
   height: 1px;
-  background: grey;
+  background: #6edcd9;
   border-style: none;
-  width: 300px;
+  width: 50%;
   margin: 0;
+}
+
+button {
+  padding: 0.7em 0.9em;
+  border-style: none;
+  border-radius: 0.2em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-weight: 400;
+  color: #fff;
+  background-color: #3369ff;
+  text-align: center;
 }
 
 .main-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 1em;
   gap: 1em;
+  background-color: cornsilk;
+  width: 70%;
+  margin: auto;
 }
 
 .container {
+  font-family: 'Lato', sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  width: 80%;
+  background-color: #6edcd9;
 }
 
 .book {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   gap: 0.5em;
-  width: 300px;
-  font-weight: 900;
+  padding: 0.5em 1em;
+  font-weight: 600;
+}
+
+.book .left {
+  display: flex;
+  gap: 0.6em;
 }
 
 .book button {
   width: 70px;
+}
+
+.evens {
+  background-color: gainsboro;
 }
 
 #book-form {
@@ -42,6 +84,11 @@ hr {
   flex-direction: column;
   gap: 1em;
   width: 150px;
+}
+
+#book-form div {
+  display: flex;
+  justify-content: end;
 }
 
 #book-form button {
