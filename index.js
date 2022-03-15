@@ -1,52 +1,53 @@
-// BOOKS COLLECTION CLASS
+import Book  from './book.js'
 
-class Book {
-  constructor(title, author) {
-    this.title = title;
-    this.author = author;
-  }
-}
+// BOOKS COLLECTION CLASS
 
 class BookCollection {
   constructor(collectionArray) {
-    this.collectionArray = collectionArray;
+    this.collectionArray = collectionArray
   }
 
   // Add books
 
-  addBook = function () {
-    const form = document.getElementById('book-form');
-    const { title, author } = form.elements;
+  addBook() {
+    const form = document.getElementById('book-form')
+    const { title, author } = form.elements
     form.addEventListener('submit', (e) => {
-      e.preventDefault();
+      e.preventDefault()
 
-      const formData = new Book(title.value, author.value);
+      const formData = new Book(title.value, author.value)
 
-      this.collectionArray.push(formData);
-      localStorage.setItem('bookData', JSON.stringify(this.collectionArray));
-      window.location.reload();
-    });
-  };
+      this.collectionArray.push(formData)
+      localStorage.setItem('bookData', JSON.stringify(this.collectionArray))
+      window.location.reload()
+    })
+  }
 
   // Remove books
 
   removeBook = function () {
-    const remove = document.querySelectorAll('.remove');
-    const book = document.querySelectorAll('.book');
+    const remove = document.querySelectorAll('.remove')
+    const book = document.querySelectorAll('.book')
 
     remove.forEach((button, i) => {
       button.addEventListener('click', () => {
-        book[i].remove();
-        this.collectionArray.splice(i, 1);
-        localStorage.setItem('bookData', JSON.stringify(this.collectionArray));
-      });
-    });
-  };
+        book[i].remove()
+        this.collectionArray.splice(i, 1)
+        localStorage.setItem('bookData', JSON.stringify(this.collectionArray))
+      })
+    })
+  }
 
   // CREATING BOOKS FROM ARRAY DATA AND POPULATING DYNAMICALLY
 
-  render = function () {
-    const container = document.querySelector('.container');
+  render() {
+    if (JSON.parse(localStorage.getItem('bookData'))) {
+      this.collectionArray = JSON.parse(localStorage.getItem('bookData'))
+    } else {
+      this.collectionArray = []
+    }
+
+    const container = document.querySelector('.container')
 
     this.collectionArray.forEach((book) => {
       const content = `<div class="book">
@@ -56,16 +57,16 @@ class BookCollection {
       <p>${book.author}</p>
       </div>
       <button class="remove">Remove</button>
-    </div>`;
+    </div>`
 
-      container.innerHTML += content;
-    });
-  };
+      container.innerHTML += content
+    })
+  }
 }
 
 const arrayCollection = new BookCollection(
   JSON.parse(localStorage.getItem('bookData')),
-);
-arrayCollection.render();
-arrayCollection.addBook();
-arrayCollection.removeBook();
+)
+arrayCollection.render()
+arrayCollection.addBook()
+arrayCollection.removeBook()
