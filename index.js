@@ -3,50 +3,33 @@
 const bookCollection = [];
 
 // Add book function
-const form = document.getElementById('book-form');
-const { title, author } = form.elements;
 
-const addBook = function () {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const formData = {
-      title: title.value,
-      author: author.value,
-    };
-
-    bookCollection.push(formData);
-    localStorage.setItem('bookData', JSON.stringify(bookCollection));
-    window.location.reload();
-  });
-};
+// const { title, author } = form.elements;
 
 // PRESERVE DATA IN THE BROWSER (LOCAL STORAGE)
 
-const fillForm = localStorage.getItem('bookData');
+// const fillForm = localStorage.getItem('bookData');
 
-if (fillForm) {
-  const data = JSON.parse(localStorage.getItem('bookData'));
+// if (fillForm) {
+//   const data = JSON.parse(localStorage.getItem('bookData'));
 
-  bookCollection.push(...data);
-}
+//   bookCollection.push(...data);
+// }
 
-// CREATING BOOKS FROM ARRAY DATA AND POPULATING DYNAMICALLY
+// const container = document.querySelector('.container');
 
-const container = document.querySelector('.container');
+// bookCollection.forEach((book, i) => {
+//   const content = `<div class="book">
+//   <div class="left">
+//   <p>${book.title}</p>
+//   <p>by</p>
+// <p>${book.author}</p>
+//   </div>
+// <button class="remove">Remove</button>
+// </div>`;
 
-bookCollection.forEach((book, i) => {
-  const content = `<div class="book">
-  <div class="left">
-  <p>${book.title}</p> 
-  <p>by</p>
-<p>${book.author}</p>
-  </div>
-<button class="remove">Remove</button>
-</div>`;
-
-  container.innerHTML += content;
-});
+//   container.innerHTML += content;
+// });
 
 // Remove book function
 
@@ -63,13 +46,73 @@ const removeBook = function () {
   });
 };
 
-addBook();
+// render();
+// addBook();
 removeBook();
 
-
 class Book {
-  constructor(title,  author){
+  constructor(title, author) {
     this.title = title;
     this.author = author;
   }
 }
+
+class BookCollection {
+  constructor(collectionArray) {
+    this.collectionArray = collectionArray;
+  }
+
+  render = function () {
+    const form = document.getElementById('book-form');
+    const { title, author } = form.elements;
+
+    const fillForm = localStorage.getItem('bookData');
+
+    if (fillForm) {
+      const data = JSON.parse(localStorage.getItem('bookData'));
+
+      this.collectionArray.push(...data);
+    } else {
+      this.collectionArray = [];
+    }
+
+    // CREATING BOOKS FROM ARRAY DATA AND POPULATING DYNAMICALLY
+
+    const container = document.querySelector('.container');
+
+    this.collectionArray.forEach((book) => {
+      const content = `<div class="book">
+    <div class="left">
+    <p>${book.title}</p> 
+    <p>by</p>
+  <p>${book.author}</p>
+    </div>
+  <button class="remove">Remove</button>
+  </div>`;
+
+      container.innerHTML += content;
+    });
+  };
+
+  // CREATING BOOKS FROM ARRAY DATA AND POPULATING DYNAMICALLY
+
+  addBook = function () {
+    const form = document.getElementById('book-form');
+    const { title, author } = form.elements;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const formData = new Book(title.value, author.value);
+
+      bookCollection.push(formData);
+      localStorage.setItem('bookData', JSON.stringify(bookCollection));
+      window.location.reload();
+    });
+  };
+}
+
+const arrayCollection = new BookCollection(
+  JSON.parse(localStorage.getItem('bookData'))
+);
+arrayCollection.render();
+arrayCollection.addBook();
