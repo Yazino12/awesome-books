@@ -75,6 +75,9 @@ nav ul li a {
 
 .main-section .date {
   background-color: rgba(0, 58, 216, 0.226);
+  align-self: flex-end;
+  color: rgb(5, 31, 117);
+  font-size: 20px;
 }
 
 .list,

@@ -84,12 +84,10 @@ class BookCollection {
     contactSection.className = 'contact';
 });
 
+    const displayDate = document.querySelector('.date');
    
     const date = new Date();
-    const toDay = date.toDateString();
-    const time = date.toLocaleTimeString();
-
-    console.log(toDay +', '+ time);
+    
 
     this.collectionArray.forEach((book) => {
       const content = `<div class="book">
