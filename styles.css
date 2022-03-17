@@ -135,23 +135,23 @@ nav ul li a {
   background-color: gainsboro;
 }
 
-#book-form {
+.book-form {
   display: flex;
   flex-direction: column;
   gap: 1em;
   width: 550px;
 }
 
-#book-form input {
+.book-form input {
   padding: 0.5em;
 }
 
-#book-form div {
+.book-form div {
   display: flex;
   justify-content: end;
 }
 
-#book-form button {
+.book-form button {
   display: inline-block;
   width: 50px;
 }

@@ -12,14 +12,34 @@ class BookCollection {
 
   // CREATING BOOKS FROM ARRAY DATA AND POPULATING DYNAMICALLY
 
-  render() {
+  initCollectionArray() {
     if (JSON.parse(localStorage.getItem('bookData'))) {
       this.collectionArray = JSON.parse(localStorage.getItem('bookData'));
     } else {
       this.collectionArray = [];
     }
+  }
 
-    const container = document.querySelector('.container');
+  displayDate = () => {
+    const dateElement = document.querySelector('.date');
+
+    const date = new Date();
+    const options = {
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    };
+    const options1 = { month: 'long', day: 'numeric' };
+
+    const d = date.toLocaleDateString('en-US', options1);
+    const all = date.toLocaleDateString('en-US', options);
+
+    dateElement.textContent = `${d}th ${all}`;
+  }
+
+  render = () => {
+    this.initCollectionArray();
 
     const listItemNav = document.querySelector('.menu-item1');
     const addItemNav = document.querySelector('.menu-item2');
@@ -27,33 +47,58 @@ class BookCollection {
 
     const mainContainer = document.querySelector('.main-section');
 
-    listItemNav.addEventListener('click', () => {
-      const listContent = `   
+    const listContent = `   
       <section class="list">
         <h1>All awesome books</h1>
         <div class="container">
-        ${this.collectionArray.forEach((book) => {
-          `<div class="book">
-            <div class="left">
-              <p>${book.title}</p>
-              <p>by</p>
-              <p>${book.author}</p>
-            </div>
-              <button class="remove">Remove</button>
-          </div>`;
-        })}
+
         </div>
       </section>`;
+    mainContainer.innerHTML = '<p class="date"></p>';
+    mainContainer.innerHTML += listContent;
 
-      mainContainer.innerHTML = listContent;
-      console.log(this.collectionArray);
+    this.collectionArray.forEach((book) => {
+      const container = document.querySelector('.container');
+      const content = `<div class="book">
+        <div class="left">
+          <p>${book.title}</p>
+          <p>by</p>
+          <p>${book.author}</p>
+        </div>
+          <button class="remove">Remove</button>
+      </div>`;
+      container.innerHTML += content;
+    });
+
+    listItemNav.addEventListener('click', () => {
+      this.initCollectionArray();
+
+      mainContainer.innerHTML = '<p class="date"></p>';
+      mainContainer.innerHTML += listContent;
+      this.displayDate();
+
+      this.collectionArray.forEach((book) => {
+        const container = document.querySelector('.container');
+        const content = `<div class="book">
+          <div class="left">
+            <p>${book.title}</p>
+            <p>by</p>
+            <p>${book.author}</p>
+          </div>
+            <button class="remove">Remove</button>
+        </div>`;
+        container.innerHTML += content;
+      });
+      this.removeBook();
     });
 
     addItemNav.addEventListener('click', () => {
+      mainContainer.innerHTML = '<p class="date"></p>';
+      this.displayDate();
       const addContent = `
       <section class="add">
       <h2>Add a new book</h2>
-      <form id="book-form" method="post" action="/">
+      <form class="book-form" method="post" action="/">
         <input
           name="title"
           id="title"
@@ -74,14 +119,24 @@ class BookCollection {
         <label for="author" hidden></label>
         <div><button type="submit">Add</button></div>
       </form>
-    </section>
+    </section>`;
 
-      `;
+      mainContainer.innerHTML += addContent;
 
-      mainContainer.innerHTML = addContent;
+      const form = document.querySelector('.book-form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const { title, author } = form.elements;
+        const formData = new Book(title.value, author.value);
+        this.addBook(formData);
+        title.value = '';
+        author.value = '';
+      });
     });
 
     contactItemNav.addEventListener('click', () => {
+      mainContainer.innerHTML = '<p class="date"></p>';
+      this.displayDate();
       const contactContent = `
       <section class="contact">
       <h2>Contact information</h2>
@@ -98,60 +153,38 @@ class BookCollection {
       </div>
     </section>`;
 
-      mainContainer.innerHTML = contactContent;
+      mainContainer.innerHTML += contactContent;
     });
-
-    const displayDate = document.querySelector('.date');
-
-    const date = new Date();
-    const options = {
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    };
-    const options1 = { month: 'long', day: 'numeric' };
-
-    const d = date.toLocaleDateString('en-US', options1);
-    const all = date.toLocaleDateString('en-US', options);
-
-    displayDate.textContent = `${d}th ${all}`;
+    this.displayDate();
   }
 
   // Add books
 
-  addBook() {
-    const form = document.getElementById('book-form');
-    console.log(form);
-    const { title, author } = form.elements;
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const formData = new Book(title.value, author.value);
-
-      this.collectionArray.push(formData);
+  addBook = (data) => {
+    if (data) {
+      this.collectionArray.push(data);
       localStorage.setItem('bookData', JSON.stringify(this.collectionArray));
-    });
+    }
   }
 
   // Remove books
 
-  removeBook = function () {
-    const remove = document.querySelectorAll('.remove');
+  removeBook = () => {
+    const buttonsRemove = document.querySelectorAll('.remove');
     const book = document.querySelectorAll('.book');
 
-    remove.forEach((button, i) => {
+    buttonsRemove.forEach((button, i) => {
       button.addEventListener('click', () => {
         book[i].remove();
         this.collectionArray.splice(i, 1);
         localStorage.setItem('bookData', JSON.stringify(this.collectionArray));
       });
     });
-  };
+  }
 }
 
 const arrayCollection = new BookCollection(
-  JSON.parse(localStorage.getItem('bookData'))
+  JSON.parse(localStorage.getItem('bookData')),
 );
 arrayCollection.render();
 arrayCollection.addBook();
